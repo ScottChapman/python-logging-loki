@@ -83,7 +83,7 @@ class LokiEmitter:
         self._post_to_loki(payload)
 
     def _post_to_loki(self, payload: dict):
-        resp = self.session.post(self.url, json=payload, headers=self.headers)
+        resp = self.session.post(self.url, verify=False, json=payload, headers=self.headers)
         # TODO: Enqueue logs instead of raising an error and losing the logs
         if resp.status_code != self.success_response_code:
             raise ValueError("Unexpected Loki API response status code: {0}".format(resp.status_code))
