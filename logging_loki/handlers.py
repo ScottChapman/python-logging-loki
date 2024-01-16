@@ -68,6 +68,7 @@ class LokiHandler(logging.Handler):
         headers: Optional[dict] = None,
         auth: Optional[BasicAuth] = None,
         as_json: Optional[bool] = False,
+        ssl_verify: Optional[bool] = True,
         props_to_labels: Optional[list[str]] = None,
         level_tag: Optional[str] = const.level_tag,
         logger_tag: Optional[str] = const.logger_tag
@@ -87,7 +88,7 @@ class LokiHandler(logging.Handler):
 
         """
         super().__init__()
-        self.emitter = LokiEmitter(url, tags, headers, auth, as_json, props_to_labels, level_tag, logger_tag)
+        self.emitter = LokiEmitter(url, tags, headers, auth, as_json, ssl_verify, props_to_labels, level_tag, logger_tag)
 
     def handleError(self, exc: Exception):  # noqa: N802
         """Close emitter and let default handler take actions on error."""
